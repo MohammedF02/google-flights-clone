@@ -102,9 +102,16 @@ const Home = () => {
             {error && <p className={styles.error}>{error}</p>}
 
             <div className={styles.results}>
-                {flights.length === 0 && !loading && <p>No flights found.</p>}
-
                 {flights.map((flight, index) => {
+                    if (
+                        !flight.data ||
+                        !flight.data.itineraries ||
+                        !flight.data.itineraries[index]
+                    ) {
+                        <p>No flights found.</p>;
+                        return null;
+                    }
+
                     const { price, legs } = flight.data.itineraries[index];
 
                     return (
