@@ -38,6 +38,7 @@ export const searchFlights = async (from, to, departureDate, returnDate) => {
                             originEntityId: fromEntity.entityId,
                             destinationEntityId: toEntity.entityId,
                             date: departureDate,
+                            returnDate: returnDate,
                         },
                     })
                 );
