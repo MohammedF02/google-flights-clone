@@ -40,6 +40,26 @@ const Home = () => {
         }
     };
 
+    const handleDepartureDateChange = (e) => {
+        setFormData({
+            ...formData,
+            departureDate: e.target.value,
+        });
+        if (new Date(e.target.value) > new Date(formData.returnDate)) {
+            setFormData({
+                ...formData,
+                returnDate: e.target.value,
+            });
+        }
+    };
+
+    const handleReturnDateChange = (e) => {
+        setFormData({
+            ...formData,
+            returnDate: e.target.value,
+        });
+    };
+
     return (
         <div className={styles.homeContainer}>
             <form className={styles.searchForm} onSubmit={handleSubmit}>
@@ -49,6 +69,7 @@ const Home = () => {
                     placeholder="From"
                     value={formData.from}
                     onChange={handleChange}
+                    required
                 />
                 <input
                     type="text"
@@ -56,18 +77,21 @@ const Home = () => {
                     placeholder="To"
                     value={formData.to}
                     onChange={handleChange}
+                    required
                 />
                 <input
                     type="date"
                     name="departureDate"
                     value={formData.departureDate}
-                    onChange={handleChange}
+                    onChange={handleDepartureDateChange}
+                    required
                 />
                 <input
                     type="date"
                     name="returnDate"
                     value={formData.returnDate}
-                    onChange={handleChange}
+                    onChange={handleReturnDateChange}
+                    min={formData.departureDate}
                 />
                 <button type="submit" disabled={loading}>
                     {loading ? "Searching..." : "Search Flights"}
